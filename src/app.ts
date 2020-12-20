@@ -1,111 +1,32 @@
+/* const { Telegraf } = require('telegraf')
+const express = require('express')
 
-import Telegraf from 'telegraf'
-import process from 'process'
+const bot = new Telegraf(process.env.TOKEN)
+// Set the bot response
+bot.on('text', ({ replyWithHTML }) => replyWithHTML('<b>Hack the World.</b>'))
 
-import TelegramBot from 'node-telegram-bot-api'
-import express from 'express'
-
-// setting up webhooks using express
-const TOKEN = process.env.TOKEN
-const url = 'https://localhost:3000'
-
-const bot = new TelegramBot(TOKEN!)
-bot.setWebHook(`${url}/bot${TOKEN}`)
+// Set telegram webhook
+// lt --port 3000
+bot.telegram.setWebhook('https://----.localtunnel.me/start')
 
 const app = express()
+app.get('/', (req, res) => res.send('Hack the World.'))
+// Set the bot API endpoint
+app.use(bot.webhookCallback('/start'))
+app.listen(3000, () => {
+  console.log('Listening on 3000...')
+}) */
+const { Telegraf } = require('telegraf')
+require('dotenv').config()
 
-app.use(express.json)
-app.post(`/bot${TOKEN}`, (req, res) => {
-  bot.processUpdate(req.body)
-  res.sendStatus(200)
-})
-app.listen(3000)
-bot.on('message', msg => {
-  bot.sendMessage(msg.chat.id, 'I am alive ma!')
-})
-// setting up webhooks ends here
+const bot = new Telegraf(process.env.TOKEN)
 
-// using polling
-const bot = new TelegramBot(process.env.TOKEN!, { polling: true })
+bot.start((ctx) => ctx.reply('Hey there Abdeali, good to see you.'))
+bot.help((ctx) => ctx.reply('1. Say "hi" \n2. Ask me "howdy" \n3. Say "tell me a joke" \n4. Send me a sticker'))
+bot.hears('hi', (ctx) => ctx.reply('Hey there'))
+bot.hears('howdy', Telegraf.reply("i'm killin' it"))
+bot.hears('tell me a joke', ({ reply }) => reply('your life.'))
+bot.on('sticker', (ctx) => ctx.reply('👍'))
 
-/*
-import { Context, session, Telegraf } from 'telegraf'
-
-const { reply, fork } = Telegraf
-
-const randomPhoto = 'https://picsum.photos/200/300/?random'
-
-const sayYoMiddleware = fork((ctx) => ctx.reply('yo'))
-
-interface SessionData {
-  heyCounter: number;
-}
-
-interface BotContext extends Context {
-  session?: SessionData;
-}
-
-const token = process.env.TOKEN
-const bot = new Telegraf<BotContext>(token || '')
-
-// // Register session middleware
-bot.use(session())
-
-// Register logger middleware
-bot.use((ctx, next) => {
-  const start = Date.now()
-  return next().then(() => {
-    const ms = Date.now() - start
-    console.log('response time %sms', ms)
-  })
-})
-
-// Login widget events
-bot.on('connected_website', ({ reply }) => reply('Website connected'))
-
-// Telegram passport events
-bot.on('passport_data', ({ reply }) => reply('Telegram password connected'))
-
-// Random location on some text messages
-bot.on('text', ({ replyWithLocation }, next) => {
-  if (Math.random() > 0.2) {
-    return next()
-  }
-  return Promise.all([
-    replyWithLocation(Math.random() * 180 - 90, Math.random() * 180 - 90),
-    next()
-  ])
-})
-
-// Text messages handling
-bot.hears('Hey', sayYoMiddleware, (ctx) => {
-  ctx.session = { heyCounter: 0 }
-  ctx.session!.heyCounter++
-  return ctx.replyWithMarkdown(`_Hey counter:_ ${ctx.session!.heyCounter}`)
-})
-
-// Command handling
-bot.command('answer', sayYoMiddleware, (ctx) => {
-  console.log(ctx.message)
-  return ctx.replyWithMarkdown('*42*')
-})
-
-bot.command('cat', ({ replyWithPhoto }) => replyWithPhoto(randomPhoto))
-
-// Streaming photo, in case Telegram doesn't accept direct URL
-bot.command('cat2', ({ replyWithPhoto }) =>
-  replyWithPhoto({ url: randomPhoto })
-)
-
-// Look ma, reply middleware factory
-bot.command('foo', reply('http://coub.com/view/9cjmt'))
-
-// Wow! RegEx
-bot.hears(/reverse (.+)/, ({ match, reply }) =>
-  reply(match![1].split('').reverse().join(''))
-)
-
-// Launch bot
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
+// launch bot
 bot.launch()
-*/
