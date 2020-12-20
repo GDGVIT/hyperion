@@ -2,13 +2,13 @@
   "name": "template-ts",
   "version": "1.0.0",
   "description": "TypeScript version of our Node.js template",
-  "main": "dist/app.js",
+  "main": "src/app.ts",
   "scripts": {
     "build": "npm run lint && tsc",
     "build-nolint": "tsc",
     "test": "mocha -r ts-node/register src/tests/*",
     "dev": "nodemon --exec ts-node src/app.ts",
-    "start": "node dist/app.js",
+    "start": "nodemon --exec ts-node src/app.ts",
     "lint": "standardx **/*.ts --fix",
     "coverage": "tsc && nyc --reporter=lcov mocha dist/tests/* && codecov"
   },
