@@ -8,5 +8,4 @@ bot.help((ctx) => ctx.reply('1. Say "hi" \n2. Ask me "howdy" \n3. Say "tell me a
 bot.hears('hi', (ctx) => ctx.reply('Hey there'))
 bot.hears('howdy', Telegraf.reply("i'm killin' it"))
 bot.hears('tell me a joke', ({ reply }) => reply('your life.'))
-bot.on('sticker', (ctx) => ctx.reply('👍'))
 bot.launch()
