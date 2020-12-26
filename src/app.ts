@@ -1,11 +1,20 @@
-const { Telegraf } = require('telegraf')
-require('dotenv').config()
+import { Telegraf } from 'telegraf'
+import { upcomingContests } from './api/codeforces/codeforces'
+import dotenv from 'dotenv'
 
-const bot = new Telegraf(process.env.TOKEN)
+dotenv.config()
 
-bot.start((ctx) => ctx.reply('Hey there Abdeali, good to see you.'))
-bot.help((ctx) => ctx.reply('1. Say "hi" \n2. Ask me "howdy" \n3. Say "tell me a joke" \n4. Send me a sticker'))
-bot.hears('hi', (ctx) => ctx.reply('Hey there'))
-bot.hears('howdy', Telegraf.reply("i'm killin' it"))
+const bot = new Telegraf(process.env.TOKEN!)
+
+bot.start((ctx) => ctx.reply('Hey there, good to see you.'))
+bot.help((ctx) => ctx.reply('1. Say "hi" \n2. Say "go" \n3. Say "tell me a joke" '))
+bot.hears('hi', Telegraf.reply('yo'))
 bot.hears('tell me a joke', ({ reply }) => reply('your life.'))
+bot.hears('go', async (ctx) => {
+  const result = await upcomingContests()
+  console.log(result)
+  ctx.reply(JSON.stringify(result))
+})
+
+// initialise the bot
 bot.launch()
