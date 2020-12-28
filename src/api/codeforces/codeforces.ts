@@ -1,10 +1,10 @@
 import axios from 'axios'
-import { UpcomingContestResponse, UpcomingContestResponseSchema } from './interfaces'
+import { UpcomingContestResponse, ContestResponseSchema } from './interfaces'
 
 export async function upcomingContests (): Promise<UpcomingContestResponse> {
   const response = await axios.get('https://codeforces.com/api/contest.list')
   const res = response.data
-  const cf: Array<UpcomingContestResponseSchema> = []
+  const cf: Array<ContestResponseSchema> = []
   for (const item of res.result) {
     if (item.phase === 'BEFORE') {
       cf.push(item)

@@ -1,4 +1,4 @@
-export interface UpcomingContestResponseSchema {
+export interface ContestResponseSchema {
     id: number;
     name: string;
     type: string;
@@ -9,5 +9,5 @@ export interface UpcomingContestResponseSchema {
     relativeTimeSeconds: number;
 }
 export interface UpcomingContestResponse {
-    result: Array<UpcomingContestResponseSchema>;
+    result: Array<ContestResponseSchema>;
 }
