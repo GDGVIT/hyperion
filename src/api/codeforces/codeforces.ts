@@ -8,9 +8,11 @@ export async function upcomingContests (): Promise<UpcomingContestResponse> {
   for (const item of res.result) {
     if (item.phase === 'BEFORE') {
       cf.push(item)
+    } else {
+      console.log('Oops, looks like there are no upcoming contests currently.')
     }
   }
   return {
-    result: cf
+    result: cf // .slice(0, 10)
   }
 }
