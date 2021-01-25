@@ -1,15 +1,18 @@
 import axios from 'axios'
 import { UpcomingContestResponse, ContestResponseSchema } from './interfaces'
+import { constants } from '../../constants'
 
 export async function upcomingContests (): Promise<UpcomingContestResponse> {
-  const response = await axios.get('https://codeforces.com/api/contest.list')
+  const response = await axios.get(constants.codeforcesUrl)
   const res = response.data
   const cf: Array<ContestResponseSchema> = []
   for (const item of res.result) {
-    if (item.phase === 'BEFORE') {
-      cf.push(item)
-    } else {
-      console.log('Oops, looks like there are no upcoming contests currently.')
+    try {
+      if (item.phase === 'BEFORE') {
+        cf.push(item)
+      }
+    } catch (err) {
+      console.log(constants.codeforcesErr)
     }
   }
   return {

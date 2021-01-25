@@ -13,10 +13,10 @@ function timeConverter (unixTimestamp): string {
   const hour = addZero(a.getHours())
   const min = addZero(a.getMinutes())
   const sec = addZero(a.getSeconds())
-  return date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec
+  return `${date} ${month} ${year} from ${hour}:${min}:${sec} IST.`
 }
 
 export function getCodeforcesString (name, startTimeSeconds): string {
   const formattedTime = timeConverter(startTimeSeconds)
-  return `${name} starts from ${formattedTime}`
+  return `${name} starts on ${formattedTime}`
 }
