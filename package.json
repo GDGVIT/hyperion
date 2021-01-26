@@ -2,13 +2,13 @@
   "name": "template-ts",
   "version": "1.0.0",
   "description": "TypeScript version of our Node.js template",
-  "main": "dist/app.js",
+  "main": "src/app.ts",
   "scripts": {
     "build": "npm run lint && tsc",
     "build-nolint": "tsc",
     "test": "mocha -r ts-node/register src/tests/*",
     "dev": "nodemon --exec ts-node src/app.ts",
-    "start": "node dist/app.js",
+    "start": "nodemon --exec ts-node src/app.ts",
     "lint": "standardx **/*.ts --fix",
     "coverage": "tsc && nyc --reporter=lcov mocha dist/tests/* && codecov"
   },
@@ -41,10 +41,16 @@
   },
   "dependencies": {
     "axios": "^0.21.0",
+    "dotenv": "^8.2.0",
+    "logger": "0.0.1",
+    "lowdb": "^1.0.0",
     "telegraf": "^3.38.0",
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "@types/logger": "0.0.0",
+    "@types/lowdb": "^1.0.9",
+    "@types/node": "^14.14.11",
     "@types/mocha": "^7.0.2",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
