@@ -13,7 +13,7 @@ function timeConverter (unixTimestamp): string {
   const hour = addZero(a.getHours())
   const min = addZero(a.getMinutes())
   const sec = addZero(a.getSeconds())
-  return `${date} ${month} ${year} from ${hour}:${min}:${sec} IST.`
+  return `${date} ${month} ${year} from ${hour}:${min}:${sec}.`
 }
 
 export function getCodeforcesString (name, startTimeSeconds): string {
