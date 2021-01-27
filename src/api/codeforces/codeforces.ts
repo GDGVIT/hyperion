@@ -2,7 +2,7 @@ import axios from 'axios'
 import { UpcomingContestResponse, ContestResponseSchema } from './interfaces'
 import { constants } from '../../constants'
 
-export async function upcomingContests (): Promise<UpcomingContestResponse> {
+export async function upcomingContestsCodeforces (): Promise<UpcomingContestResponse> {
   const response = await axios.get(constants.codeforcesUrl)
   const res = response.data
   const cf: Array<ContestResponseSchema> = []
