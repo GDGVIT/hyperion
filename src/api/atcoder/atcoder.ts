@@ -3,7 +3,7 @@ import { UpcomingContestResponse, ContestResponseSchema } from './interfaces'
 import { constants } from '../../constants'
 
 export async function upcomingContestsAtcoder (): Promise<UpcomingContestResponse> {
-  const response = await axios.get(constants.atcoderUrl)
+  const response = await axios.get(constants.atCoderUrl)
   const res = response.data
   const at: Array<ContestResponseSchema> = []
   try {
@@ -11,7 +11,7 @@ export async function upcomingContestsAtcoder (): Promise<UpcomingContestRespons
       at.push(item)
     }
   } catch (err) {
-    console.log(constants.atcoderErr)
+    console.log(constants.atCoderErr)
   }
   return {
     result: at

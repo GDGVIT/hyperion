@@ -26,7 +26,7 @@ bot.hears('1', async (ctx) => {
   for (const i of result.result) {
     s = s + '\n\n' + getCodeforcesString(i.name, i.startTimeSeconds)
   }
-  ctx.reply(constants.codeforcesReply + s)
+  ctx.reply(constants.codeForcesReply + s)
 })
 
 // For Codechef:
@@ -48,7 +48,7 @@ bot.hears('3', async (ctx) => {
   for (const i of events.result) {
     s = s + '\n\n' + getAtcoderString(i.title, i.startTimeSeconds)
   }
-  ctx.reply(constants.atcoderReply + s)
+  ctx.reply(constants.atCoderReply + s)
 })
 
 // Launching the bot

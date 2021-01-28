@@ -3,7 +3,7 @@ import { UpcomingContestResponse, ContestResponseSchema } from './interfaces'
 import { constants } from '../../constants'
 
 export async function upcomingContestsCodeforces (): Promise<UpcomingContestResponse> {
-  const response = await axios.get(constants.codeforcesUrl)
+  const response = await axios.get(constants.codeForcesUrl)
   const res = response.data
   const cf: Array<ContestResponseSchema> = []
   for (const item of res.result) {
@@ -12,7 +12,7 @@ export async function upcomingContestsCodeforces (): Promise<UpcomingContestResp
         cf.push(item)
       }
     } catch (err) {
-      console.log(constants.codeforcesErr)
+      console.log(constants.codeForcesErr)
     }
   }
   return {
