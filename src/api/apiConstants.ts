@@ -23,3 +23,7 @@ export function getCodeforcesString (name, startTimeSeconds): string {
 export function getCodeChefString (name, startTime, startDate): string {
   return `${name} starts on ${startDate} from ${startTime}`
 }
+export function getAtcoderString (title, startTimeSeconds): string {
+  const formattedTime = timeConverter(startTimeSeconds)
+  return `${title} starts on ${formattedTime}`
+}
