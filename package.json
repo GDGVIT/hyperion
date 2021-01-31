@@ -40,7 +40,7 @@
     ]
   },
   "dependencies": {
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "logger": "0.0.1",
     "lowdb": "^1.0.0",
