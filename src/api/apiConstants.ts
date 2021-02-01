@@ -20,6 +20,6 @@ export function getCodeforcesString (name, startTimeSeconds): string {
   const formattedTime = timeConverter(startTimeSeconds)
   return `${name} starts on ${formattedTime}`
 }
-export function getCodeChefString (name, startTime, startDate): string {
-  return `${name} starts on ${startDate} from ${startTime}`
+export function getCodeChefString (name, href, startTime, startDate): string {
+  return `<a href ='${href}'>${name}</a> starts on ${startDate} from ${startTime}`
 }
