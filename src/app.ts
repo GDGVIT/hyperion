@@ -26,7 +26,6 @@ bot.hears('0', (ctx) => {
 })
 bot.hears('1', async (ctx) => {
   const result = await upcomingContestsCodeforces()
-  console.log(result.result)
   let s = ''
   for (const i of result.result) {
     s = s + '\n\n' + getCodeforcesString(i.name, i.startTimeSeconds)
@@ -37,12 +36,10 @@ bot.hears('1', async (ctx) => {
 // For Codechef:
 bot.hears('2', async (ctx) => {
   const events = await upcomingContestsCodeChef()
-  console.log(events.result)
   let s = ''
   for (const i of events.result) {
     s = s + '\n\n' + getCodeChefString(i.name, i.href, i.startTime, i.startDate)
   }
-  console.log(constants.codeChefReply + s)
   ctx.reply(constants.codeChefReply + s, Extra.HTML())
 })
 

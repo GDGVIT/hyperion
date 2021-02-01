@@ -10,7 +10,6 @@ export async function upcomingContestsCodeChef (): Promise<UpcomingContestRespon
     for (const item of res.events) {
       cc.push(item)
     }
-    console.log(response.status)
   } catch (err) {
     console.log(constants.codeChefErr)
   }
