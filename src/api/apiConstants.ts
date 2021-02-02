@@ -16,14 +16,14 @@ function timeConverter (unixTimestamp): string {
   return `${date} ${month} ${year} from ${hour}:${min}:${sec}.`
 }
 
-export function getCodeforcesString (name, startTimeSeconds): string {
+export function getCodeforcesString (name, id, startTimeSeconds): string {
   const formattedTime = timeConverter(startTimeSeconds)
-  return `${name} starts on ${formattedTime}`
+  return `<a href='https://atcoder.jp/contests/${id}'>${name}</a> starts on ${formattedTime}`
 }
 export function getCodeChefString (name, href, startTime, startDate): string {
   return `<a href ='${href}'>${name}</a> starts on ${startDate} from ${startTime}`
 }
-export function getAtcoderString (title, startTimeSeconds): string {
+export function getAtcoderString (title, id, startTimeSeconds): string {
   const formattedTime = timeConverter(startTimeSeconds)
-  return `${title} starts on ${formattedTime}`
+  return `<a href='https://atcoder.jp/contests/${id}'>${title.substring(1)}</a> starts on ${formattedTime}`
 }
