@@ -50,9 +50,9 @@ bot.hears('3', async (ctx) => {
   console.log(events.result)
   let s = ''
   for (const i of events.result) {
-    s = s + '\n\n' + getAtcoderString(i.title, i.startTimeSeconds)
+    s = s + '\n\n' + getAtcoderString(i.title, i.id, i.startTimeSeconds)
   }
-  ctx.reply(constants.atCoderReply + s)
+  ctx.reply(constants.atCoderReply + s, Extra.HTML())
 })
 
 // Launching the bot
