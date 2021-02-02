@@ -29,9 +29,9 @@ bot.hears('1', async (ctx) => {
   const result = await upcomingContestsCodeforces()
   let s = ''
   for (const i of result.result) {
-    s = s + '\n\n' + getCodeforcesString(i.name, i.startTimeSeconds)
+    s = s + '\n\n' + getCodeforcesString(i.name, i.id, i.startTimeSeconds)
   }
-  ctx.reply(constants.codeForcesReply + s)
+  ctx.reply(constants.codeForcesReply + s, Extra.HTML())
 })
 
 // For Codechef:
