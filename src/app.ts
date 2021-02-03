@@ -47,12 +47,29 @@ bot.hears('2', async (ctx) => {
 // For Atcoder:
 bot.hears('3', async (ctx) => {
   const events = await upcomingContestsAtcoder()
-  console.log(events.result)
   let s = ''
   for (const i of events.result) {
     s = s + '\n\n' + getAtcoderString(i.title, i.id, i.startTimeSeconds)
   }
   ctx.reply(constants.atCoderReply + s, Extra.HTML())
+})
+
+// Misc all
+bot.hears('7', async (ctx) => {
+  const eventsCF = await upcomingContestsCodeforces()
+  const eventsCC = await upcomingContestsCodeChef()
+  const eventsAC = await upcomingContestsAtcoder()
+  let resultString = ''
+  for (const i of eventsCF.result) {
+    resultString = resultString + '\n\n' + getCodeforcesString(i.name, i.id, i.startTimeSeconds)
+  }
+  for (const i of eventsCC.result) {
+    resultString = resultString + '\n\n' + getCodeChefString(i.name, i.href, i.startTime, i.startDate)
+  }
+  for (const i of eventsAC.result) {
+    resultString = resultString + '\n\n' + getAtcoderString(i.title, i.id, i.startTimeSeconds)
+  }
+  ctx.reply(constants.miscReply + resultString, Extra.HTML())
 })
 
 // Launching the bot
