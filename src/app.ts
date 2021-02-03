@@ -2,7 +2,7 @@ import { Telegraf } from 'telegraf'
 import { upcomingContestsCodeforces } from './api/codeforces/codeforces'
 import { upcomingContestsCodeChef } from './api/codechef/codechef'
 import { upcomingContestsAtcoder } from './api/atcoder/atcoder'
-import { getCodeforcesString, getCodeChefString, getAtcoderString } from './api/apiConstants'
+import { getCodeforcesString, getAtcoderString, codechefFilter } from './api/apiConstants'
 import { constants } from './constants'
 import dotenv from 'dotenv'
 import Extra from 'telegraf/extra'
@@ -39,7 +39,10 @@ bot.hears('2', async (ctx) => {
   const events = await upcomingContestsCodeChef()
   let s = ''
   for (const i of events.result) {
-    s = s + '\n\n' + getCodeChefString(i.name, i.href, i.startTime, i.startDate)
+    const str = codechefFilter(i)
+    if (str !== 'Not valid') {
+      s = s + '\n\n' + codechefFilter(i)
+    }
   }
   ctx.reply(constants.codeChefReply + s, Extra.HTML())
 })
@@ -55,7 +58,7 @@ bot.hears('3', async (ctx) => {
 })
 
 // Misc all
-bot.hears('7', async (ctx) => {
+bot.hears('6', async (ctx) => {
   const eventsCF = await upcomingContestsCodeforces()
   const eventsCC = await upcomingContestsCodeChef()
   const eventsAC = await upcomingContestsAtcoder()
@@ -64,7 +67,10 @@ bot.hears('7', async (ctx) => {
     resultString = resultString + '\n\n' + getCodeforcesString(i.name, i.id, i.startTimeSeconds)
   }
   for (const i of eventsCC.result) {
-    resultString = resultString + '\n\n' + getCodeChefString(i.name, i.href, i.startTime, i.startDate)
+    const str = codechefFilter(i)
+    if (str !== 'Not valid') {
+      resultString = resultString + '\n\n' + codechefFilter(i)
+    }
   }
   for (const i of eventsAC.result) {
     resultString = resultString + '\n\n' + getAtcoderString(i.title, i.id, i.startTimeSeconds)
