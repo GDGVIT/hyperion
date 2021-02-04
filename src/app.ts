@@ -1,8 +1,8 @@
 import { Telegraf } from 'telegraf'
-import { upcomingContestsCodeforces } from './api/codeforces/codeforces'
+import { upcomingContestsCodeforces, runningContestsCodeforces } from './api/codeforces/codeforces'
 import { upcomingContestsCodeChef } from './api/codechef/codechef'
 import { upcomingContestsAtcoder } from './api/atcoder/atcoder'
-import { getCodeforcesString, getAtcoderString, codechefFilter } from './api/apiConstants'
+import { getCodeforcesString, getAtcoderString, codechefFilterUpcoming, codechefFilterRunning } from './api/apiConstants'
 import { constants } from './constants'
 import dotenv from 'dotenv'
 import Extra from 'telegraf/extra'
@@ -25,40 +25,81 @@ bot.hears('0', (ctx) => {
   const helloText = '<i>Hello</i>, ' + userName + '!'
   return helloText
 })
-bot.hears('1', async (ctx) => {
+bot.command('cf_upcoming', async (ctx) => {
   const result = await upcomingContestsCodeforces()
   let s = ''
   for (const i of result.result) {
     s = s + '\n\n' + getCodeforcesString(i.name, i.id, i.startTimeSeconds)
   }
-  ctx.reply(constants.codeForcesReply + s, Extra.HTML())
+  if (s === '') {
+    ctx.reply(constants.noContestMessage)
+  } else {
+    ctx.reply(constants.codeForcesReplyUpcoming + s, Extra.HTML())
+  }
+})
+
+bot.command('cf_running', async (ctx) => {
+  const result = await runningContestsCodeforces()
+  let s = ''
+  for (const i of result.result) {
+    s = s + '\n\n' + getCodeforcesString(i.name, i.id, i.startTimeSeconds)
+  }
+  if (s === '') {
+    ctx.reply(constants.noContestMessage)
+  } else {
+    ctx.reply(constants.codeForcesReplyRunning + s, Extra.HTML())
+  }
 })
 
 // For Codechef:
-bot.hears('2', async (ctx) => {
+bot.command('cc_upcoming', async (ctx) => {
   const events = await upcomingContestsCodeChef()
   let s = ''
   for (const i of events.result) {
-    const str = codechefFilter(i)
+    const str = codechefFilterUpcoming(i)
     if (str !== 'Not valid') {
-      s = s + '\n\n' + codechefFilter(i)
+      s = s + '\n\n' + codechefFilterUpcoming(i)
     }
   }
-  ctx.reply(constants.codeChefReply + s, Extra.HTML())
+  if (s === '') {
+    ctx.reply(constants.noContestMessage)
+  } else {
+    ctx.reply(constants.codeChefReplyUpcoming + s, Extra.HTML())
+  }
+})
+
+bot.command('cc_running', async (ctx) => {
+  const events = await upcomingContestsCodeChef()
+  let s = ''
+  for (const i of events.result) {
+    const str = codechefFilterRunning(i)
+    if (str !== 'Not valid') {
+      s = s + '\n\n' + codechefFilterRunning(i)
+    }
+  }
+  if (s === '') {
+    ctx.reply(constants.noContestMessage)
+  } else {
+    ctx.reply(constants.codeChefReplyRunning + s, Extra.HTML())
+  }
 })
 
 // For Atcoder:
-bot.hears('3', async (ctx) => {
+bot.command('ac_contests', async (ctx) => {
   const events = await upcomingContestsAtcoder()
   let s = ''
   for (const i of events.result) {
     s = s + '\n\n' + getAtcoderString(i.title, i.id, i.startTimeSeconds)
   }
-  ctx.reply(constants.atCoderReply + s, Extra.HTML())
+  if (s === '') {
+    ctx.reply(constants.noContestMessage)
+  } else {
+    ctx.reply(constants.atCoderReply + s, Extra.HTML())
+  }
 })
 
 // Misc all
-bot.hears('6', async (ctx) => {
+bot.command('upcoming', async (ctx) => {
   const eventsCF = await upcomingContestsCodeforces()
   const eventsCC = await upcomingContestsCodeChef()
   const eventsAC = await upcomingContestsAtcoder()
@@ -67,16 +108,43 @@ bot.hears('6', async (ctx) => {
     resultString = resultString + '\n\n' + getCodeforcesString(i.name, i.id, i.startTimeSeconds)
   }
   for (const i of eventsCC.result) {
-    const str = codechefFilter(i)
+    const str = codechefFilterUpcoming(i)
     if (str !== 'Not valid') {
-      resultString = resultString + '\n\n' + codechefFilter(i)
+      resultString = resultString + '\n\n' + codechefFilterUpcoming(i)
     }
   }
   for (const i of eventsAC.result) {
     resultString = resultString + '\n\n' + getAtcoderString(i.title, i.id, i.startTimeSeconds)
   }
-  ctx.reply(constants.miscReply + resultString, Extra.HTML())
+  if (resultString === '') {
+    ctx.reply(constants.noContestMessage)
+  } else {
+    ctx.reply(constants.miscReply + resultString, Extra.HTML())
+  }
 })
+
+bot.command('running', async (ctx) => {
+  const eventsCF = await runningContestsCodeforces()
+  const eventsCC = await upcomingContestsCodeChef()
+  let resultString = ''
+  for (const i of eventsCF.result) {
+    resultString = resultString + '\n\n' + getCodeforcesString(i.name, i.id, i.startTimeSeconds)
+  }
+  for (const i of eventsCC.result) {
+    const str = codechefFilterRunning(i)
+    if (str !== 'Not valid') {
+      resultString = resultString + '\n\n' + codechefFilterRunning(i)
+    }
+  }
+  if (resultString === '') {
+    ctx.reply(constants.noContestMessage)
+  } else {
+    ctx.reply(constants.miscReply + resultString, Extra.HTML())
+  }
+})
+
+// Editorial
+bot.command('sites', (ctx) => ctx.reply(constants.sitesMessage))
 
 // Launching the bot
 bot.launch()
