@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { UpcomingContestResponse, ContestResponseSchema, RunningContestResponse } from './interfaces'
+import { ContestResponse, ContestResponseSchema } from './interfaces'
 import { constants } from '../../constants'
 
-export async function upcomingContestsCodeforces (): Promise<UpcomingContestResponse> {
+export async function upcomingContestsCodeforces (): Promise<ContestResponse> {
   const response = await axios.get(constants.codeForcesUrl)
   const res = response.data
   const cf: Array<ContestResponseSchema> = []
@@ -20,7 +20,7 @@ export async function upcomingContestsCodeforces (): Promise<UpcomingContestResp
   }
 }
 
-export async function runningContestsCodeforces (): Promise<RunningContestResponse> {
+export async function runningContestsCodeforces (): Promise<ContestResponse> {
   const response = await axios.get(constants.codeForcesUrl)
   const res = response.data
   const cf: Array<ContestResponseSchema> = []

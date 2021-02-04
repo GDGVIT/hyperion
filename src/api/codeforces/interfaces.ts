@@ -8,10 +8,6 @@ export interface ContestResponseSchema {
     startTimeSeconds: number;
     relativeTimeSeconds: number;
 }
-export interface UpcomingContestResponse {
-    result: Array<ContestResponseSchema>;
-}
-
-export interface RunningContestResponse {
+export interface ContestResponse {
     result: Array<ContestResponseSchema>;
 }
