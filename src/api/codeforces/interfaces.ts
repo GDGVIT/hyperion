@@ -11,3 +11,7 @@ export interface ContestResponseSchema {
 export interface UpcomingContestResponse {
     result: Array<ContestResponseSchema>;
 }
+
+export interface RunningContestResponse {
+    result: Array<ContestResponseSchema>;
+}

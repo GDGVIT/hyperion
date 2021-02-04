@@ -29,7 +29,7 @@ export function getAtcoderString (title, id, startTimeSeconds): string {
   return `<a href='https://atcoder.jp/contests/${id}'>${title.substring(1)}</a> starts on ${formattedTime}`
 }
 
-export function codechefFilter (i: ContestResponseSchema): string {
+export function codechefFilterUpcoming (i: ContestResponseSchema): string {
   const today = new Date()
   const year = today.getFullYear()
   const month = today.getMonth()
