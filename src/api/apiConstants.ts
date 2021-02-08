@@ -27,6 +27,10 @@ export function getAtcoderString (title, id, startTimeSeconds): string {
   const formattedTime = timeConverter(startTimeSeconds)
   return `<a href='https://atcoder.jp/contests/${id}'>${title.substring(1)}</a> starts on ${formattedTime}`
 }
+export function getTime (startTimeSeconds): string {
+  const formattedTime = timeConverter(startTimeSeconds)
+  return formattedTime
+}
 
 export function codechefFilterUpcoming (i: ContestResponseSchema): string {
   const today = new Date()
