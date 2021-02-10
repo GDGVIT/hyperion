@@ -44,6 +44,7 @@
     "dotenv": "^8.2.0",
     "logger": "0.0.1",
     "lowdb": "^1.0.0",
+    "node-schedule": "^2.0.0",
     "telegraf": "^3.38.0",
     "winston": "^3.3.3"
   },
