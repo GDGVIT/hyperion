@@ -7,12 +7,14 @@ export const constants = {
   codeForcesErr: 'Oops, looks like there are no upcoming contests currently on Codeforces.',
   codeForcesReplyUpcoming: 'Upcoming contests on Codeforces are - ',
   codeForcesReplyRunning: 'Running contests on Codeforces are - ',
-  codeChefUrl: 'http://cp-events-api.herokuapp.com/api/v1/codechef',
+  codeChefUrlUpcoming: 'https://api.codechef.com/contests?status=future&sortOrder=asc',
+  codeChefUrlRunning: 'https://api.codechef.com/contests?status=present&sortOrder=asc',
   codeChefErr: 'Oops, looks like there are no upcoming contests currently on CodeChef.',
   codeChefReplyUpcoming: 'Upcoming contests on CodeChef are - ',
   codeChefReplyRunning: 'Running contests on CodeChef are - ',
   atCoderUrl: 'http://cp-events-api.herokuapp.com/api/v1/atcoder',
   atCoderErr: 'Oops, looks like there are no upcoming contests currently on Atcoder.',
   atCoderReply: 'Upcoming contests on Atcoder are - ',
-  noContestMessage: 'Sorry, looks like there are no running contests right now!'
+  noContestMessage: 'Sorry, looks like there are no running contests right now!',
+  method: 'get'
 }

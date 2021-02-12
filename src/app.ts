@@ -1,8 +1,8 @@
 import { Telegraf } from 'telegraf'
 import { upcomingContestsCodeforces, runningContestsCodeforces } from './api/codeforces/codeforces'
-import { upcomingContestsCodeChef } from './api/codechef/codechef'
+import { upcomingContestsCodeChef, runningContestsCodeChef } from './api/codechef/codechef'
 import { upcomingContestsAtcoder } from './api/atcoder/atcoder'
-import { getCodeforcesString, getAtcoderString, codechefFilterUpcoming, codechefFilterRunning } from './api/apiConstants'
+import { getCodeforcesString, getAtcoderString, getCodeChefStringUpcoming, getCodeChefStringRunning } from './api/apiConstants'
 import { constants } from './constants'
 import dotenv from 'dotenv'
 import Extra from 'telegraf/extra'
@@ -19,12 +19,13 @@ bot.start((ctx) => ctx.reply(constants.startMessage))
 bot.help((ctx) => ctx.reply(constants.helpMessage))
 
 // RESULTS
-// For Codeforces:
 bot.hears('0', (ctx) => {
   const userName = ctx.from.first_name
   const helloText = '<i>Hello</i>, ' + userName + '!'
   return helloText
 })
+
+// For Codeforces:
 bot.command('cf_upcoming', async (ctx) => {
   const result = await upcomingContestsCodeforces()
   let s = ''
@@ -53,13 +54,10 @@ bot.command('cf_running', async (ctx) => {
 
 // For Codechef:
 bot.command('cc_upcoming', async (ctx) => {
-  const events = await upcomingContestsCodeChef()
+  const result = await upcomingContestsCodeChef()
   let s = ''
-  for (const i of events.result) {
-    const str = codechefFilterUpcoming(i)
-    if (str !== 'Not valid') {
-      s = s + '\n\n' + codechefFilterUpcoming(i)
-    }
+  for (const i of result.result) {
+    s = s + '\n\n' + getCodeChefStringUpcoming(i.name, i.code, i.startDate)
   }
   if (s === '') {
     ctx.reply(constants.noContestMessage)
@@ -67,15 +65,11 @@ bot.command('cc_upcoming', async (ctx) => {
     ctx.reply(constants.codeChefReplyUpcoming + s, Extra.HTML())
   }
 })
-
 bot.command('cc_running', async (ctx) => {
-  const events = await upcomingContestsCodeChef()
+  const result = await runningContestsCodeChef()
   let s = ''
-  for (const i of events.result) {
-    const str = codechefFilterRunning(i)
-    if (str !== 'Not valid') {
-      s = s + '\n\n' + codechefFilterRunning(i)
-    }
+  for (const i of result.result) {
+    s = s + '\n\n' + getCodeChefStringRunning(i.name, i.code, i.endDate)
   }
   if (s === '') {
     ctx.reply(constants.noContestMessage)
@@ -108,10 +102,7 @@ bot.command('upcoming', async (ctx) => {
     resultString = resultString + '\n\n' + getCodeforcesString(i.name, i.id, i.startTimeSeconds)
   }
   for (const i of eventsCC.result) {
-    const str = codechefFilterUpcoming(i)
-    if (str !== 'Not valid') {
-      resultString = resultString + '\n\n' + codechefFilterUpcoming(i)
-    }
+    resultString = resultString + '\n\n' + getCodeChefStringUpcoming(i.name, i.code, i.startDate)
   }
   for (const i of eventsAC.result) {
     resultString = resultString + '\n\n' + getAtcoderString(i.title, i.id, i.startTimeSeconds)
@@ -125,16 +116,13 @@ bot.command('upcoming', async (ctx) => {
 
 bot.command('running', async (ctx) => {
   const eventsCF = await runningContestsCodeforces()
-  const eventsCC = await upcomingContestsCodeChef()
+  const eventsCC = await runningContestsCodeChef()
   let resultString = ''
   for (const i of eventsCF.result) {
     resultString = resultString + '\n\n' + getCodeforcesString(i.name, i.id, i.startTimeSeconds)
   }
   for (const i of eventsCC.result) {
-    const str = codechefFilterRunning(i)
-    if (str !== 'Not valid') {
-      resultString = resultString + '\n\n' + codechefFilterRunning(i)
-    }
+    resultString = resultString + '\n\n' + getCodeChefStringRunning(i.name, i.code, i.endDate)
   }
   if (resultString === '') {
     ctx.reply(constants.noContestMessage)
