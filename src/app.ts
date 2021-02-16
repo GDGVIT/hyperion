@@ -1,4 +1,5 @@
 import { Telegraf } from 'telegraf'
+import schedule from 'node-schedule'
 import { upcomingContestsCodeforces, runningContestsCodeforces } from './api/codeforces/codeforces'
 import { upcomingContestsCodeChef, runningContestsCodeChef } from './api/codechef/codechef'
 import { upcomingContestsAtcoder } from './api/atcoder/atcoder'
@@ -133,6 +134,63 @@ bot.command('running', async (ctx) => {
 
 // Editorial
 bot.command('sites', (ctx) => ctx.reply(constants.sitesMessage))
+
+// scheduled messages
+bot.command('subscribe', async (ctx) => {
+  const eventsCodechef = await upcomingContestsCodeChef()
+  for (const i of eventsCodechef.result) {
+    const yearContest = i.startDate.substring(6)
+    const monthContest = i.startDate.substring(2, 6)
+    const dayContest = i.startDate.substring(0, 2)
+    const hoursContest = i.startTime.toString().substring(0, 2)
+    const d = Date.parse(monthContest + '1, 2021')
+    const final = new Date(d).getMonth()
+    const dayPreviousReminder = new Date(parseInt(yearContest), final, parseInt(dayContest) - 1, 10, 0, 0)
+    const daySameReminder = new Date(parseInt(yearContest), final, parseInt(dayContest), parseInt(hoursContest) - 1, 0, 0)
+    schedule.scheduleJob(dayPreviousReminder, function () {
+      ctx.reply('One day before reminder - Codechef\n' + codechefFilterUpcoming(i), Extra.HTML())
+    })
+    schedule.scheduleJob(daySameReminder, function () {
+      ctx.reply('One hour before reminder - Codechef\n' + codechefFilterUpcoming(i), Extra.HTML())
+    })
+  }
+
+  const eventsCodeforces = await upcomingContestsCodeforces()
+  for (const i of eventsCodeforces.result) {
+    const yearContest = getTime(i.startTimeSeconds).substring(6, 11)
+    const monthContest = getTime(i.startTimeSeconds).substring(2, 6)
+    const dayContest = getTime(i.startTimeSeconds).substring(0, 2)
+    const hoursContest = getTime(i.startTimeSeconds).toString().substring(17, 19)
+    const d = Date.parse(monthContest + '1, 2021')
+    const final = new Date(d).getMonth()
+    const dayPreviousReminder = new Date(parseInt(yearContest), final, parseInt(dayContest) - 1, 10, 0, 0)
+    const daySameReminder = new Date(parseInt(yearContest), final, parseInt(dayContest), parseInt(hoursContest) - 1, 0, 0)
+    schedule.scheduleJob(dayPreviousReminder, function () {
+      ctx.reply('One day before reminder - codeForces\n' + getCodeforcesString(i.name, i.id, i.startTimeSeconds), Extra.HTML())
+    })
+    schedule.scheduleJob(daySameReminder, function () {
+      ctx.reply('One hour before reminder - Codeforces\n' + getCodeforcesString(i.name, i.id, i.startTimeSeconds), Extra.HTML())
+    })
+  }
+
+  const eventsAtcoder = await upcomingContestsAtcoder()
+  for (const i of eventsAtcoder.result) {
+    const yearContest = getTime(i.startTimeSeconds).substring(6)
+    const monthContest = getTime(i.startTimeSeconds).substring(2, 6)
+    const dayContest = getTime(i.startTimeSeconds).substring(0, 2)
+    const hoursContest = getTime(i.startTimeSeconds).toString().substring(0, 2)
+    const d = Date.parse(monthContest + '1, 2021')
+    const final = new Date(d).getMonth()
+    const dayPreviousReminder = new Date(parseInt(yearContest), final, parseInt(dayContest) - 1, 10, 0, 0)
+    const daySameReminder = new Date(parseInt(yearContest), final, parseInt(dayContest), parseInt(hoursContest) - 1, 0, 0)
+    schedule.scheduleJob(dayPreviousReminder, function () {
+      ctx.reply('One day before reminder - Atcoder \n' + getAtcoderString(i.title, i.id, i.startTimeSeconds), Extra.HTML())
+    })
+    schedule.scheduleJob(daySameReminder, function () {
+      ctx.reply('One hour before reminder - Atcoder\n' + getAtcoderString(i.title, i.id, i.startTimeSeconds), Extra.HTML())
+    })
+  }
+})
 
 // Launching the bot
 bot.launch()
