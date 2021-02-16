@@ -1,4 +1,3 @@
-import { ContestResponseSchema } from './codechef/interfaces'
 function addZero (i): string {
   if (i < 10) {
     i = '0' + i
@@ -20,69 +19,38 @@ export function getCodeforcesString (name, id, startTimeSeconds): string {
   const formattedTime = timeConverter(startTimeSeconds)
   return `<a href='https://atcoder.jp/contests/${id}'>${name}</a> starts on ${formattedTime}`
 }
-export function getCodeChefString (name, href, startTime, startDate): string {
-  return `<a href ='${href}'>${name}</a> starts on ${startDate} from ${startTime.substring(0, 6)}`
+
+export function getCodeChefStringUpcoming (name, code, startDate): string {
+  const tempYear = startDate.substring(0, 4)
+  const tempDay = startDate.substring(8, 10)
+  const tempTime = startDate.substring(11, 16)
+  const tempMonth = parseInt(startDate.toString().substring(5, 7))
+  const months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  let finalMonth = ''
+  for (let i = 0; i <= months.length; i++) {
+    if (tempMonth === i) {
+      finalMonth = months[i]
+    }
+  }
+  return `<a href ='https://www.codechef.com/${code}?itm_campaign=contest_listing'>${name}</a> starts on ${tempDay} ${finalMonth} ${tempYear} from ${tempTime}`
 }
+
+export function getCodeChefStringRunning (name, code, endDate): string {
+  const tempYear = endDate.substring(0, 4)
+  const tempDay = endDate.substring(8, 10)
+  const tempTime = endDate.substring(11, 16)
+  const tempMonth = parseInt(endDate.toString().substring(5, 7))
+  const months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  let finalMonth = ''
+  for (let i = 0; i <= months.length; i++) {
+    if (tempMonth === i) {
+      finalMonth = months[i]
+    }
+  }
+  return `<a href ='https://www.codechef.com/${code}?itm_campaign=contest_listing'>${name}</a> ends on ${tempDay} ${finalMonth} ${tempYear} at ${tempTime}`
+}
+
 export function getAtcoderString (title, id, startTimeSeconds): string {
   const formattedTime = timeConverter(startTimeSeconds)
   return `<a href='https://atcoder.jp/contests/${id}'>${title.substring(1)}</a> starts on ${formattedTime}`
-}
-export function getTime (startTimeSeconds): string {
-  const formattedTime = timeConverter(startTimeSeconds)
-  return formattedTime
-}
-
-export function codechefFilterUpcoming (i: ContestResponseSchema): string {
-  const today = new Date()
-  const year = today.getFullYear()
-  const month = today.getMonth()
-  const day = today.getDay()
-  const time = today.getHours()
-  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  const yearTemp = i.startDate.toString().substring(7)
-  const monthTemp = i.startDate.toString().substring(2, 6)
-  const dayTemp = i.startDate.toString().substring(0, 2)
-  const timeTemp = i.startTime.toString().substring(0, 3)
-  const final = (parseInt(timeTemp) >= 12) ? (parseInt(timeTemp) - 12).toString() : timeTemp
-  if (year.toString() < yearTemp) {
-    return getCodeChefString(i.name, i.href, i.startTime, i.startDate)
-  } else if (year.toString() === yearTemp && monthNames[month] < monthTemp) {
-    return getCodeChefString(i.name, i.href, i.startTime, i.startDate)
-  } else if (year.toString() === yearTemp && monthNames[month] === monthTemp && day.toString() < dayTemp) {
-    return getCodeChefString(i.name, i.href, i.startTime, i.startDate)
-  } else if (year.toString() === yearTemp && monthNames[month] === monthTemp && day.toString() === dayTemp && time.toString() <= final) {
-    return getCodeChefString(i.name, i.href, i.startTime, i.startDate)
-  } else {
-    return 'Not valid'
-  }
-}
-
-export function codechefFilterRunning (i: ContestResponseSchema): string {
-  const today = new Date()
-  const year = today.getFullYear()
-  const month = today.getMonth()
-  const day = today.getDay()
-  const time = today.getHours()
-  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  const yearTemp = i.endDate.toString().substring(7)
-  const yearTempStart = i.startDate.toString().substring(7)
-  const monthTemp = i.endDate.toString().substring(2, 6)
-  const dayTemp = i.endDate.toString().substring(0, 2)
-  const timeTemp = i.endTime.toString().substring(0, 3)
-  const final = (parseInt(timeTemp) >= 12) ? (parseInt(timeTemp) - 12).toString() : timeTemp
-  if (year.toString() > yearTempStart) {
-    if (year.toString() < yearTemp) {
-      return getCodeChefString(i.name, i.href, i.startTime, i.startDate)
-    } else if (year.toString() === yearTemp && monthNames[month] < monthTemp) {
-      return getCodeChefString(i.name, i.href, i.startTime, i.startDate)
-    } else if (year.toString() === yearTemp && monthNames[month] === monthTemp && day.toString() < dayTemp) {
-      return getCodeChefString(i.name, i.href, i.startTime, i.startDate)
-    } else if (year.toString() === yearTemp && monthNames[month] === monthTemp && day.toString() === dayTemp && time.toString() <= final) {
-      return getCodeChefString(i.name, i.href, i.startTime, i.startDate)
-    } else {
-      return 'Not valid'
-    }
-  } else {
-    return 'Not valid'
-  }
 }

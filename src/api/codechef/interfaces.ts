@@ -1,11 +1,9 @@
+
 export interface ContestResponseSchema {
-    code: string;
     name: string;
-    href: string;
-    startTime: number ;
-    startDate: string;
-    endTime: number;
-    endDate: string;
+    code: string;
+    startDate: number;
+    endDate: number;
 }
 export interface UpcomingContestResponse {
     result: Array<ContestResponseSchema>;
