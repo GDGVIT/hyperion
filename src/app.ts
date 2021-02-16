@@ -3,7 +3,7 @@ import schedule from 'node-schedule'
 import { upcomingContestsCodeforces, runningContestsCodeforces } from './api/codeforces/codeforces'
 import { upcomingContestsCodeChef, runningContestsCodeChef } from './api/codechef/codechef'
 import { upcomingContestsAtcoder } from './api/atcoder/atcoder'
-import { getCodeforcesString, getAtcoderString, getCodeChefStringUpcoming, getCodeChefStringRunning } from './api/apiConstants'
+import { getCodeforcesString, getAtcoderString, getCodeChefStringUpcoming, getCodeChefStringRunning, getTime } from './api/apiConstants'
 import { constants } from './constants'
 import dotenv from 'dotenv'
 import Extra from 'telegraf/extra'
@@ -139,19 +139,17 @@ bot.command('sites', (ctx) => ctx.reply(constants.sitesMessage))
 bot.command('subscribe', async (ctx) => {
   const eventsCodechef = await upcomingContestsCodeChef()
   for (const i of eventsCodechef.result) {
-    const yearContest = i.startDate.substring(6)
-    const monthContest = i.startDate.substring(2, 6)
-    const dayContest = i.startDate.substring(0, 2)
-    const hoursContest = i.startTime.toString().substring(0, 2)
-    const d = Date.parse(monthContest + '1, 2021')
-    const final = new Date(d).getMonth()
-    const dayPreviousReminder = new Date(parseInt(yearContest), final, parseInt(dayContest) - 1, 10, 0, 0)
-    const daySameReminder = new Date(parseInt(yearContest), final, parseInt(dayContest), parseInt(hoursContest) - 1, 0, 0)
+    const yearContest = i.startDate.toString().substring(0, 4)
+    const monthContest = parseInt(i.startDate.toString().substring(5, 7))
+    const dayContest = i.startDate.toString().substring(8, 10)
+    const hoursContest = i.startDate.toString().substring(11, 16)
+    const dayPreviousReminder = new Date(parseInt(yearContest), monthContest, parseInt(dayContest) - 1, 10, 0, 0)
+    const daySameReminder = new Date(parseInt(yearContest), monthContest, parseInt(dayContest), parseInt(hoursContest) - 1, 0, 0)
     schedule.scheduleJob(dayPreviousReminder, function () {
-      ctx.reply('One day before reminder - Codechef\n' + codechefFilterUpcoming(i), Extra.HTML())
+      ctx.reply('One day before reminder - Codechef\n' + getCodeChefStringUpcoming(i.name, i.code, i.startDate), Extra.HTML())
     })
     schedule.scheduleJob(daySameReminder, function () {
-      ctx.reply('One hour before reminder - Codechef\n' + codechefFilterUpcoming(i), Extra.HTML())
+      ctx.reply('One hour before reminder - Codechef\n' + getCodeChefStringUpcoming(i.name, i.code, i.startDate), Extra.HTML())
     })
   }
 
