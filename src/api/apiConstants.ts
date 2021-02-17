@@ -59,3 +59,7 @@ export function getTime (startTimeSeconds): string {
   const formattedTime = timeConverter(startTimeSeconds)
   return formattedTime
 }
+
+export function getKickStart (name, startDate, startTime): string {
+  return `<a href="https://codingcompetitions.withgoogle.com/kickstart/schedule">${name}</a> on ${startDate} at ${startTime}`
+}

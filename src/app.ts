@@ -1,9 +1,10 @@
 import { Telegraf } from 'telegraf'
 import schedule from 'node-schedule'
+import { allContests } from './api/kickStart/kickstart'
 import { upcomingContestsCodeforces, runningContestsCodeforces } from './api/codeforces/codeforces'
 import { upcomingContestsCodeChef, runningContestsCodeChef } from './api/codechef/codechef'
 import { upcomingContestsAtcoder } from './api/atcoder/atcoder'
-import { getCodeforcesString, getAtcoderString, getCodeChefStringUpcoming, getCodeChefStringRunning, getTime } from './api/apiConstants'
+import { getCodeforcesString, getAtcoderString, getCodeChefStringUpcoming, getCodeChefStringRunning, getTime, getKickStart } from './api/apiConstants'
 import { constants } from './constants'
 import dotenv from 'dotenv'
 import Extra from 'telegraf/extra'
@@ -90,6 +91,20 @@ bot.command('ac_contests', async (ctx) => {
     ctx.reply(constants.noContestMessage)
   } else {
     ctx.reply(constants.atCoderReply + s, Extra.HTML())
+  }
+})
+
+// For Google's Kickstart
+bot.command('ks_contests', async (ctx) => {
+  const events = allContests
+  let s = ''
+  for (const i of events) {
+    s = s + '\n\n' + getKickStart(i.name, i.startDate, i.startTime)
+  }
+  if (s === '') {
+    ctx.reply(constants.noContestMessage)
+  } else {
+    ctx.reply(constants.kickStartReply + s, Extra.HTML())
   }
 })
 
@@ -189,6 +204,12 @@ bot.command('subscribe', async (ctx) => {
     })
   }
 })
+
+// More about the community and devs
+bot.command('more', (ctx) => ctx.reply(constants.knowMore))
+bot.command('contribute', (ctx) => ctx.reply(constants.contributeMessage))
+bot.command('community', (ctx) => ctx.reply(constants.communityMessage))
+bot.command('devs', (ctx) => ctx.reply(constants.devsMessage))
 
 // Launching the bot
 bot.launch()
