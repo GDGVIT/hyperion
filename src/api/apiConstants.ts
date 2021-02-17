@@ -12,12 +12,12 @@ function timeConverter (unixTimestamp): string {
   const date = a.getDate()
   const hour = addZero(a.getHours())
   const min = addZero(a.getMinutes())
-  return `${date} ${month} ${year} from ${hour}:${min}.`
+  return `${date} ${month} ${year} from ${hour}:${min}`
 }
 
 export function getCodeforcesString (name, id, startTimeSeconds): string {
   const formattedTime = timeConverter(startTimeSeconds)
-  return `<a href='https://atcoder.jp/contests/${id}'>${name}</a> starts on ${formattedTime}`
+  return `<a href='https://atcoder.jp/contests/${id}'>${name}</a> starts on ${formattedTime}.`
 }
 
 export function getCodeChefStringUpcoming (name, code, startDate): string {
@@ -32,7 +32,7 @@ export function getCodeChefStringUpcoming (name, code, startDate): string {
       finalMonth = months[i]
     }
   }
-  return `<a href ='https://www.codechef.com/${code}?itm_campaign=contest_listing'>${name}</a> starts on ${tempDay} ${finalMonth} ${tempYear} from ${tempTime}`
+  return `<a href ='https://www.codechef.com/${code}?itm_campaign=contest_listing'>${name}</a> starts on ${tempDay} ${finalMonth} ${tempYear} from ${tempTime}.`
 }
 
 export function getCodeChefStringRunning (name, code, endDate): string {
@@ -47,12 +47,12 @@ export function getCodeChefStringRunning (name, code, endDate): string {
       finalMonth = months[i]
     }
   }
-  return `<a href ='https://www.codechef.com/${code}?itm_campaign=contest_listing'>${name}</a> ends on ${tempDay} ${finalMonth} ${tempYear} at ${tempTime}`
+  return `<a href ='https://www.codechef.com/${code}?itm_campaign=contest_listing'>${name}</a> ends on ${tempDay} ${finalMonth} ${tempYear} at ${tempTime}.`
 }
 
 export function getAtcoderString (title, id, startTimeSeconds): string {
   const formattedTime = timeConverter(startTimeSeconds)
-  return `<a href='https://atcoder.jp/contests/${id}'>${title.substring(1)}</a> starts on ${formattedTime}`
+  return `<a href='https://atcoder.jp/contests/${id}'>${title.substring(1)}</a> starts on ${formattedTime}.`
 }
 
 export function getTime (startTimeSeconds): string {
@@ -61,5 +61,5 @@ export function getTime (startTimeSeconds): string {
 }
 
 export function getKickStart (name, startDate, startTime): string {
-  return `<a href="https://codingcompetitions.withgoogle.com/kickstart/schedule">${name}</a> on ${startDate} at ${startTime}`
+  return `<a href="https://codingcompetitions.withgoogle.com/kickstart/schedule">${name}</a> on ${startDate} at ${startTime}.`
 }

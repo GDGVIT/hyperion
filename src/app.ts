@@ -203,6 +203,7 @@ bot.command('subscribe', async (ctx) => {
       ctx.reply('One hour before reminder - Atcoder\n' + getAtcoderString(i.title, i.id, i.startTimeSeconds), Extra.HTML())
     })
   }
+  ctx.reply('You have successfully subscribed to receive reminders for all the upcoming contests!')
 })
 
 // More about the community and devs
