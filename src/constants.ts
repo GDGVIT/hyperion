@@ -1,7 +1,7 @@
 export const constants = {
-  startMessage: "Hello Coder, great to have you on board! Let's get started: type \n/help to get the list of all the possible commands.\n",
-  helpMessage: 'Here are the basic list of commands that you can use:\n\n/sites - This command will help you get the information of upcoming & running contests for specific websites\n\n/upcoming - This command will help you get all the upcoming contests from all websites\n\n/running - This command will help you get all the upcoming contests from all websites\n\n/ac_contests - this command will help you get all the contests from AtCoder\n\n/cf_upcoming - this command will give you all the upcoming contests from CodeForces\n\n/cf_running - this command will give you all the running contests from CodeForces\n\n/cc_upcoming - this command will give you all the upcoming contests from CodeChef\n\n/cc_running - this command will give you all the running contests from CodeChef',
-  sitesMessage: 'Here are the websites from which the contests will be listed from: \n\n1. Codeforces \n2. CodeChef \n3. Atcoder \n4. ICPC \n5. Google Kick Start',
+  startMessage: "Hello Coder, great to have you on board! Let's get started: type /help to get the list of all the possible commands.\n",
+  helpMessage: 'Here are the basic list of commands that you can use:\n\n/sites - This command will help you get the information of upcoming & running contests for specific websites\n\n/upcoming - This command will help you get all the upcoming contests from all websites\n\n/running - This command will help you get all the upcoming contests from all websites\n\n/ks_contests - This command will help you get all the contests from Google KickStart\n\n/ac_contests - This command will help you get all the contests from AtCoder\n\n/cf_upcoming - This command will give you all the upcoming contests from CodeForces\n\n/cf_running - This command will give you all the running contests from CodeForces\n\n/cc_upcoming - This command will give you all the upcoming contests from CodeChef\n\n/cc_running - This command will give you all the running contests from CodeChef\n\n/subscribe - This command will help you get a reminder of upcoming contests a day and an hour before it starts\n\n/more - This command will help you connect with the community & devs!\n\n/contribute - This command will give you the details to contribute to this project',
+  sitesMessage: 'Here are the websites from which the contests will be listed from: \n\n1. Codeforces \n2. CodeChef \n3. Atcoder \n4. Google Kick Start',
   miscReply: 'All the events from the websites are listed below - ',
   codeForcesUrl: 'https://codeforces.com/api/contest.list',
   codeForcesErr: 'Oops, looks like there are no upcoming contests currently on Codeforces.',
@@ -16,5 +16,10 @@ export const constants = {
   atCoderErr: 'Oops, looks like there are no upcoming contests currently on Atcoder.',
   atCoderReply: 'Upcoming contests on Atcoder are - ',
   noContestMessage: 'Sorry, looks like there are no running contests right now!',
-  codeChefTokenUrl: 'https://api.codechef.com/oauth/token'
+  codeChefTokenUrl: 'https://api.codechef.com/oauth/token',
+  kickStartReply: 'Upcoming contests on Google KickStart are - (GMT +5:30)',
+  knowMore: '/community - To know more about the community Developers Students Club, VIT Vellore\n\n/devs - To know more about the developers',
+  contributeMessage: 'Contribute to this project to make it bigger and better :) \n\nRepo link: https://github.com/GDGVIT/code-competition-watcher\n\nMake open source programming fun and happy developing 👩‍💻👨‍💻 ',
+  communityMessage: 'We are an awesome community of devs, designers and managers who conduct several events + workshops + webinars + hacks + much more\n\nWebsite: https://dscvit.com/ \n\nInstagram: https://www.instagram.com/dscvitvellore/ \n\nTwitter: https://twitter.com/dscvit \n\nFacebook: https://www.facebook.com/dscvitvellore \n\nLinkedin: https://www.linkedin.com/company/dscvit \n\nMedium: https://medium.com/gdg-vit \n\nYoutube: https://www.youtube.com/channel/UCvT-ZJF7fXHJi9kDeCPR-zg',
+  devsMessage: 'Anshul Bamb \n\nAbdeali Jaroli \n\nMd Hishaam Akhtar\n\nMayank'
 }
