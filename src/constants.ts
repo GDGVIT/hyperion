@@ -20,6 +20,6 @@ export const constants = {
   kickStartReply: 'Upcoming contests on Google KickStart are - (GMT +5:30)',
   knowMore: '/community - To know more about the community - Developers Students Club, VIT Vellore. \n\n/devs - To know more about the developers!',
   contributeMessage: 'Contribute to this project to make it bigger and better :) \n\nRepo link: https://github.com/GDGVIT/code-competition-watcher\n\nMake Open Source Programming fun and Happy Developing! 👩‍💻👨‍💻 ',
-  communityMessage: 'We are a group of passionate designers, developers and managers who work together to bring about collaborative results that better the lives of everyone around us. \n\nWebsite: https://dscvit.com/ \n\nInstagram: https://www.instagram.com/dscvitvellore/ \n\nTwitter: https://twitter.com/dscvit \n\nFacebook: https://www.facebook.com/dscvitvellore \n\nLinkedin: https://www.linkedin.com/company/dscvit \n\nMedium: https://medium.com/gdg-vit \n\nYoutube: https://www.youtube.com/channel/UCvT-ZJF7fXHJi9kDeCPR-zg',
-  devsMessage: 'Meet the devs! \n\nAnshul Bamb, Abdeali Jaroli, Md Hishaam Akhtar and Mayank Kumar.'
+  communityMessage: 'We are a group of passionate designers, developers and managers who work together to bring about collaborative results that better the lives of everyone around us.\n\n',
+  devsMessage: 'Meet the devs!\n\n'
 }

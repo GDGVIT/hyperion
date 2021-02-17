@@ -209,8 +209,10 @@ bot.command('subscribe', async (ctx) => {
 // More about the community and devs
 bot.command('more', (ctx) => ctx.reply(constants.knowMore))
 bot.command('contribute', (ctx) => ctx.reply(constants.contributeMessage))
-bot.command('community', (ctx) => ctx.reply(constants.communityMessage))
-bot.command('devs', (ctx) => ctx.reply(constants.devsMessage))
+bot.command('devs', (ctx) => ctx.reply(constants.devsMessage + '<a href="https://www.linkedin.com/in/anshul-bamb-b67830193">Anshul Bamb</a>\n\n<a href="https://abdealijaroli.tech">Abdeali Jaroli</a>\n\n<a href="https://mdhishaamakhtar.co">Md Hishaam Akhtar</a>\n\n<a href="https://www.linkedin.com/in/mayankk2/">Mayank Kumar</a>', Extra.HTML()))
+bot.command('community', (ctx) => ctx.reply(
+  constants.communityMessage + '<a href="https://dscvit.com/">Website</a>\n\n<a href="https://www.instagram.com/dscvitvellore/">Instagram</a>\n\n<a href="https://twitter.com/dscvit">Twitter</a>\n\n<a href="https://www.facebook.com/dscvitvellore">Facebook</a>\n\n<a href="https://www.linkedin.com/company/dscvit">Linkedin</a>\n\n<a href="https://medium.com/gdg-vit">Medium</a>\n\n<a href="https://www.youtube.com/channel/UCvT-ZJF7fXHJi9kDeCPR-zg">YouTube</a>', Extra.HTML()
+))
 
 // Launching the bot
 bot.launch()
