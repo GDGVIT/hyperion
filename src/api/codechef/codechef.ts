@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import redis from 'redis'
-import { UpcomingContestResponse, ContestResponseSchema } from './interfaces'
+import { UpcomingContestResponse, ContestResponseSchema, UpcomingRunningSchema, TokenSchema } from './interfaces'
 import { constants } from '../../constants'
 import dotenv from 'dotenv'
 import { promisify } from 'util'
@@ -14,7 +14,7 @@ client.on('connect', function () {
   console.log('Redis Client Connected...')
 })
 
-async function tokenHandler (): Promise<any> {
+async function tokenHandler (): Promise<TokenSchema> {
   const data = (
     {
       // eslint-disable-next-line @typescript-eslint/camelcase
@@ -36,8 +36,9 @@ async function tokenHandler (): Promise<any> {
   const res = await axios(config)
   const ACCESS_TOKEN = res.data.result.data.access_token
   await redisSet('access_token', ACCESS_TOKEN)
+  return { value: 'token is generated' }
 }
-async function callCodeChefUpcoming (): Promise<any> {
+async function callCodeChefUpcoming (): Promise<UpcomingRunningSchema> {
   try {
     const token = await redisGet('access_token')
     const config: AxiosRequestConfig = {
@@ -55,11 +56,12 @@ async function callCodeChefUpcoming (): Promise<any> {
     }
   } catch (err) {
     return {
-      error: true
+      error: true,
+      response: {}
     }
   }
 }
-async function callCodeChefRunning (): Promise<any> {
+async function callCodeChefRunning (): Promise<UpcomingRunningSchema> {
   try {
     const token = await redisGet('access_token')
     const config: AxiosRequestConfig = {
@@ -77,7 +79,8 @@ async function callCodeChefRunning (): Promise<any> {
     }
   } catch (err) {
     return {
-      error: true
+      error: true,
+      response: {}
     }
   }
 }

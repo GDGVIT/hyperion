@@ -126,7 +126,7 @@ bot.command('upcoming', async (ctx) => {
   if (resultString === '') {
     ctx.reply(constants.noContestMessage)
   } else {
-    ctx.reply(constants.miscReply + resultString, Extra.HTML())
+    ctx.reply(constants.miscReplyUpcoming + resultString, Extra.HTML())
   }
 })
 
@@ -143,7 +143,7 @@ bot.command('running', async (ctx) => {
   if (resultString === '') {
     ctx.reply(constants.noContestMessage)
   } else {
-    ctx.reply(constants.miscReply + resultString, Extra.HTML())
+    ctx.reply(constants.miscReplyRunning + resultString, Extra.HTML())
   }
 })
 
