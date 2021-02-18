@@ -7,6 +7,8 @@ import { upcomingContestsAtcoder } from './api/atcoder/atcoder'
 import { getCodeforcesString, getAtcoderString, getCodeChefStringUpcoming, getCodeChefStringRunning, getTime, getKickStart } from './api/apiConstants'
 import { constants } from './constants'
 import dotenv from 'dotenv'
+import { promisify } from 'util'
+import redis from 'redis'
 import Extra from 'telegraf/extra'
 dotenv.config()
 
@@ -213,6 +215,15 @@ bot.command('devs', (ctx) => ctx.reply(constants.devsMessage + '<a href="https:/
 bot.command('community', (ctx) => ctx.reply(
   constants.communityMessage + '<a href="https://dscvit.com/">Website</a>\n\n<a href="https://www.instagram.com/dscvitvellore/">Instagram</a>\n\n<a href="https://twitter.com/dscvit">Twitter</a>\n\n<a href="https://www.facebook.com/dscvitvellore">Facebook</a>\n\n<a href="https://www.linkedin.com/company/dscvit">Linkedin</a>\n\n<a href="https://medium.com/gdg-vit">Medium</a>\n\n<a href="https://www.youtube.com/channel/UCvT-ZJF7fXHJi9kDeCPR-zg">YouTube</a>', Extra.HTML()
 ))
+
+// Redis
+export const client = redis.createClient(process.env.REDIS_URL)
+export const redisSet = promisify(client.set).bind(client)
+export const redisGet = promisify(client.get).bind(client)
+
+client.on('connect', function () {
+  console.log('Redis Client Connected...')
+})
 
 // Launching the bot
 bot.launch()
