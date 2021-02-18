@@ -1,18 +1,9 @@
 import axios, { AxiosRequestConfig } from 'axios'
-import redis from 'redis'
 import { UpcomingContestResponse, ContestResponseSchema, UpcomingRunningSchema, TokenSchema } from './interfaces'
 import { constants } from '../../constants'
+import { redisGet, redisSet } from '../../../src/app'
 import dotenv from 'dotenv'
-import { promisify } from 'util'
 dotenv.config()
-
-const client = redis.createClient()
-const redisSet = promisify(client.set).bind(client)
-const redisGet = promisify(client.get).bind(client)
-
-client.on('connect', function () {
-  console.log('Redis Client Connected...')
-})
 
 async function tokenHandler (): Promise<TokenSchema> {
   const data = (
@@ -85,44 +76,64 @@ async function callCodeChefRunning (): Promise<UpcomingRunningSchema> {
   }
 }
 export async function upcomingContestsCodeChef (): Promise<UpcomingContestResponse> {
-  let response = await callCodeChefUpcoming()
-  if (response.error) {
-    await tokenHandler()
-    response = await callCodeChefUpcoming()
-  }
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  // @ts-ignore
-  const res = response.response.data
-  const cc: Array<ContestResponseSchema> = []
-  try {
-    for (const item of res.result.data.content.contestList) {
-      cc.push(item)
+  const re = await redisGet('cc_upcoming')
+  if (re) {
+    return {
+      result: JSON.parse(re)
     }
-  } catch (err) {
-    console.log(constants.codeChefErr)
-  }
-  return {
-    result: cc
+  } else {
+    let response = await callCodeChefUpcoming()
+    if (response.error) {
+      await tokenHandler()
+      response = await callCodeChefUpcoming()
+    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    const res = response.response.data
+    const cc: Array<ContestResponseSchema> = []
+    try {
+      for (const item of res.result.data.content.contestList) {
+        cc.push(item)
+      }
+    } catch (err) {
+      console.log(constants.codeChefErr)
+    }
+    if (cc.length > 0) {
+      await redisSet('cc_upcoming', JSON.stringify(cc))
+    }
+    return {
+      result: cc
+    }
   }
 }
 export async function runningContestsCodeChef (): Promise<UpcomingContestResponse> {
-  let response = await callCodeChefRunning()
-  if (response.error) {
-    await tokenHandler()
-    response = await callCodeChefRunning()
-  }
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  // @ts-ignore
-  const res = response.response.data
-  const cc: Array<ContestResponseSchema> = []
-  try {
-    for (const item of res.result.data.content.contestList) {
-      cc.push(item)
+  const re = await redisGet('cc_running')
+  if (re) {
+    return {
+      result: JSON.parse(re)
     }
-  } catch (err) {
-    console.log(constants.codeChefErr)
-  }
-  return {
-    result: cc
+  } else {
+    let response = await callCodeChefRunning()
+    if (response.error) {
+      await tokenHandler()
+      response = await callCodeChefRunning()
+    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    const res = response.response.data
+    const cc: Array<ContestResponseSchema> = []
+    try {
+      for (const item of res.result.data.content.contestList) {
+        cc.push(item)
+      }
+    } catch (err) {
+      console.log(constants.codeChefErr)
+    }
+    if (cc.length > 0) {
+      await redisSet('cc_running', JSON.stringify(cc))
+    }
+    return {
+      result: cc
+    }
   }
 }
