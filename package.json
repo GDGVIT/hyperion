@@ -43,7 +43,6 @@
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "logger": "0.0.1",
-    "lowdb": "^1.0.0",
     "node-schedule": "^2.0.0",
     "redis": "^3.0.2",
     "telegraf": "^3.38.0",
