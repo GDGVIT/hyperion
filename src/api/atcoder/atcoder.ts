@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { UpcomingContestResponse, ContestResponseSchema } from './interfaces'
 import { constants } from '../../constants'
-import { redisGet, redisSet } from '../../../src/app'
+import { redisGet, redisSet } from '../../app'
 
 export async function upcomingContestsAtcoder (): Promise<UpcomingContestResponse> {
   const re = await redisGet('ac_upcoming')

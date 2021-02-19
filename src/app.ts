@@ -1,5 +1,5 @@
 import { Telegraf } from 'telegraf'
-import logger from '../src/logging/logger'
+import logger from './logging/logger'
 import schedule from 'node-schedule'
 import { allContests } from './api/kickStart/kickstart'
 import { upcomingContestsCodeforces, runningContestsCodeforces } from './api/codeforces/codeforces'

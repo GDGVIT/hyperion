@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { UpcomingContestResponse, ContestResponseSchema, UpcomingRunningSchema, TokenSchema } from './interfaces'
 import { constants } from '../../constants'
-import { redisGet, redisSet } from '../../../src/app'
+import { redisGet, redisSet } from '../../app'
 import dotenv from 'dotenv'
 dotenv.config()
 
