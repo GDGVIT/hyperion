@@ -51,7 +51,7 @@ export async function runningContestsCodeforces (): Promise<ContestResponse> {
       }
     }
     if (cf.length > 0) {
-      await redisSet('cf_running', JSON.stringify(cf))
+      await redisSet('cf_running', JSON.stringify(cf), 'EX', 60 * 60 * 10)
     }
     return {
       result: cf // .slice(0, 10)

@@ -99,7 +99,7 @@ export async function upcomingContestsCodeChef (): Promise<UpcomingContestRespon
       console.log(constants.codeChefErr)
     }
     if (cc.length > 0) {
-      await redisSet('cc_upcoming', JSON.stringify(cc))
+      await redisSet('cc_upcoming', JSON.stringify(cc), 'EX', 60 * 60 * 10)
     }
     return {
       result: cc
@@ -130,7 +130,7 @@ export async function runningContestsCodeChef (): Promise<UpcomingContestRespons
       console.log(constants.codeChefErr)
     }
     if (cc.length > 0) {
-      await redisSet('cc_running', JSON.stringify(cc))
+      await redisSet('cc_running', JSON.stringify(cc), 'EX', 60 * 60 * 10)
     }
     return {
       result: cc
