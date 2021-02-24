@@ -21,7 +21,7 @@ export async function upcomingContestsAtcoder (): Promise<UpcomingContestRespons
       console.log(constants.atCoderErr)
     }
     if (at.length > 0) {
-      await redisSet('ac_upcoming', JSON.stringify(at))
+      await redisSet('ac_upcoming', JSON.stringify(at), 'EX', 60 * 60 * 10)
     }
     return {
       result: at
