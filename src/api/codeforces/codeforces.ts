@@ -23,7 +23,7 @@ export async function upcomingContestsCodeforces (): Promise<ContestResponse> {
       }
     }
     if (cf.length > 0) {
-      await redisSet('cf_upcoming', JSON.stringify(cf))
+      await redisSet('cf_upcoming', JSON.stringify(cf), 'EX', 60 * 60 * 10)
     }
     return {
       result: cf // .slice(0, 10)
