@@ -17,7 +17,7 @@ function timeConverter (unixTimestamp): string {
 
 export function getCodeforcesString (name, id, startTimeSeconds): string {
   const formattedTime = timeConverter(startTimeSeconds)
-  return `<a href='https://atcoder.jp/contests/${id}'>${name}</a> starts on ${formattedTime}.`
+  return `<a href='https://codeforces.com/contest/${id}'>${name}</a> starts on ${formattedTime}.`
 }
 
 export function getCodeChefStringUpcoming (name, code, startDate): string {
