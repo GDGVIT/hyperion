@@ -13,7 +13,7 @@ export const constants = {
   codeChefErr: 'Oops, looks like there are no upcoming contests currently on CodeChef.',
   codeChefReplyUpcoming: 'Upcoming contests on CodeChef are - ',
   codeChefReplyRunning: 'Running contests on CodeChef are - ',
-  atCoderUrl: 'http://cp-events-api.herokuapp.com/api/v1/atcoder',
+  atCoderUrl: `${process.env.ATCODER_URL}/api/v1/atcoder`,
   atCoderErr: 'Oops, looks like there are no upcoming contests currently on Atcoder.',
   atCoderReply: 'Upcoming contests on Atcoder are - ',
   noContestMessage: 'Sorry, looks like there are no running contests right now!',
